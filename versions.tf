@@ -1,9 +1,12 @@
-# This file will contain the required providers for your module.
-# Each Terraform module must declare which providers it requires, so that Terraform
-# can install and use them.
-
 terraform {
 
   required_version = ">= 1.13.0"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.64.0"
+    }
+  }
 
 }
