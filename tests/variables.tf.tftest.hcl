@@ -198,7 +198,7 @@ run "invalid_private_endpoint_request_message_too_long" {
         name                           = "psc-${substr(replace(uuid(), "-", ""), 0, 8)}"
         is_manual_connection           = true
         private_connection_resource_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-${substr(replace(uuid(), "-", ""), 0, 8)}/providers/Microsoft.KeyVault/vaults/kv${substr(replace(uuid(), "-", ""), 0, 10)}"
-        request_message                = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901"
+        request_message                = repeat("a", 141)
       }
     }
   }
