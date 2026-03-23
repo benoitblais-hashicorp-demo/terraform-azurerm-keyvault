@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Azure Key Vault
+# Azure Key Vault Terraform Module
 
 Terraform module to provision an Azure Key Vault with configurable access policies or RBAC assignments, and optional private endpoint integration.
 
@@ -7,19 +7,66 @@ Terraform module to provision an Azure Key Vault with configurable access polici
 
 To provision the Azure resources managed by this module, the identity running Terraform needs permissions such as:
 
-- Key Vault management (create/update/delete).
-- Key Vault access policy and/or RBAC role assignment management.
-- Private endpoint and private DNS zone group management (if used).
-- Resource group read and write access where resources are created.
+- `Contributor` (for resource group and Key Vault/Private Endpoint resource lifecycle operations).
+- `User Access Administrator` (required if this module creates `azurerm_role_assignment` resources).
+- `Key Vault Contributor` (optional scoped alternative for Key Vault management, when not using broad Contributor at scope).
+- `Network Contributor` (required on the target virtual network/subnet used by private endpoints).
+- `Private DNS Zone Contributor` (required when managing private DNS zone groups and zone records linked to private endpoints).
 
 ## Authentications
 
-Authenticate to Azure using one of the supported AzureRM provider methods:
+Authentication to Azure can be configured using one of the following methods:
 
-- Azure CLI (`az login`) for local development.
-- Service principal with client secret or certificate.
-- Managed identity when running in Azure.
-- Environment variables (`ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_TENANT_ID`, `ARM_SUBSCRIPTION_ID`).
+### Service Principal and Client Secret
+
+Use an Azure AD service principal for non-interactive runs (CI/CD, automation).
+
+You can configure this method in either of the following ways:
+
+- **Inside the provider block**
+
+  ```hcl
+  provider "azurerm" {
+    features {}
+
+    subscription_id = "<subscription-id>"
+    tenant_id       = "<tenant-id>"
+    client_id       = "<client-id>"
+    client_secret   = "<client-secret>"
+  }
+  ```
+
+- **Using environment variables**
+
+  - `ARM_SUBSCRIPTION_ID`
+  - `ARM_TENANT_ID`
+  - `ARM_CLIENT_ID`
+  - `ARM_CLIENT_SECRET`
+
+### Managed Service Identity
+
+Use Managed Identity when Terraform runs on Azure-hosted compute (for example, Azure VM, VMSS, App Service, AKS).
+
+- **Inside the provider block**
+
+  ```hcl
+  provider "azurerm" {
+    features {}
+    use_msi = true
+  }
+  ```
+
+- **Using environment variables**
+
+  - `ARM_USE_MSI=true`
+  - `ARM_SUBSCRIPTION_ID`
+  - `ARM_TENANT_ID` (optional in some environments, but recommended for clarity)
+
+Documentation:
+
+- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure
+- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
+- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/managed_service_identity
 
 ## Features
 
@@ -432,4 +479,12 @@ Description: The private endpoint private service connection private IP address 
 Description: The URI of the Key Vault, used for performing operations on keys and secrets.
 
 <!-- markdownlint-enable -->
+## External documentation
+
+- Provider overview: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/
+- azurerm\_key\_vault: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault
+- azurerm\_key\_vault\_access\_policy: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault\_access\_policy
+- azurerm\_role\_assignment: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment
+- azurerm\_private\_endpoint: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint
+- data.azurerm\_client\_config: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config
 <!-- END_TF_DOCS -->
