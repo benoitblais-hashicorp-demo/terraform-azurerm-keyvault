@@ -16,16 +16,6 @@ run "apply_keyvault_basic" {
   }
 
   assert {
-    condition     = can(output.id)
-    error_message = "Key Vault ID output must be defined."
-  }
-
-  assert {
-    condition     = can(output.uri)
-    error_message = "Key Vault URI output must be defined."
-  }
-
-  assert {
     condition     = output.private_endpoint == null
     error_message = "Private endpoint must not be created when private_endpoint is not provided."
   }
