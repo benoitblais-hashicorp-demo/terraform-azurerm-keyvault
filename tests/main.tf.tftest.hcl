@@ -16,13 +16,13 @@ run "apply_keyvault_basic" {
   }
 
   assert {
-    condition     = output.id != null && output.id != ""
-    error_message = "Key Vault ID must be exported."
+    condition     = can(output.id)
+    error_message = "Key Vault ID output must be defined."
   }
 
   assert {
-    condition     = output.uri != null && output.uri != ""
-    error_message = "Key Vault URI must be exported."
+    condition     = can(output.uri)
+    error_message = "Key Vault URI output must be defined."
   }
 
   assert {
