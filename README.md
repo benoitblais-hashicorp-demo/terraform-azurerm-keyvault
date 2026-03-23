@@ -64,9 +64,9 @@ Use Managed Identity when Terraform runs on Azure-hosted compute (for example, A
 
 Documentation:
 
-- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure
-- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
-- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/managed_service_identity
+- [Authenticating to Azure](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure)
+- [Service Principal and Client Secret](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret)
+- [Managed Service Identity](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/managed_service_identity)
 
 ## Features
 
@@ -479,12 +479,12 @@ Description: The private endpoint private service connection private IP address 
 Description: The URI of the Key Vault, used for performing operations on keys and secrets.
 
 <!-- markdownlint-enable -->
-## External documentation
+# External documentation
 
-- Provider overview: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/
-- azurerm\_key\_vault: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault
-- azurerm\_key\_vault\_access\_policy: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault\_access\_policy
-- azurerm\_role\_assignment: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment
-- azurerm\_private\_endpoint: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint
-- data.azurerm\_client\_config: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config
+- [Provider overview](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/)
+- [azurerm\_key\_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault)
+- [azurerm\_key\_vault\_access\_policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault\_access\_policy)
+- [azurerm\_role\_assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment)
+- [azurerm\_private\_endpoint](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint)
+- [data.azurerm\_client\_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config)
 <!-- END_TF_DOCS -->
