@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 run "apply_keyvault_basic" {
-  command = apply
+  command = plan
 
   module {
     source = "./tests/fixtures/basic"
